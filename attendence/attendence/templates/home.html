@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Attendance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen text-gray-800">
+
+  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">QR Code Attendance</h1>
+
+    {% if error %}
+      <div class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    {% if message %}
+      <div class="bg-green-100 text-green-700 px-4 py-2 mb-4 rounded">
+        {{ message }}
+      </div>
+    {% endif %}
+
+    {% if otp_mode %}
+      <h3 class="text-lg font-semibold text-center mb-4">Scan this QR and enter OTP:</h3>
+      <div class="flex justify-center mb-4">
+        <img src="{{ url_for('qr_image') }}" alt="QR Code" class="w-48 h-48">
+      </div>
+      <form action="{{ url_for('verify_otp') }}" method="post" class="space-y-4">
+        <input type="text" name="otp" placeholder="Enter OTP" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200">
+          Submit OTP
+        </button>
+      </form>
+    {% else %}
+      <form method="post" class="space-y-4">
+        <input type="text" name="name" placeholder="Name" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <input type="text" name="roll" placeholder="Roll No" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200">
+          Generate QR & Mark Attendance
+        </button>
+      </form>
+    {% endif %}
+
+    <div class="text-center mt-6">
+      <a href="{{ url_for('admin_login') }}" class="text-blue-600 hover:underline">Admin Login</a>
+    </div>
+  </div>
+
+</body>
+</html>

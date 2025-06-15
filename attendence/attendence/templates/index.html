@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen text-gray-800">
+
+  <div class="bg-white p-10 rounded-lg shadow-lg text-center max-w-md w-full">
+    <h1 class="text-4xl font-bold mb-8 text-blue-600">Welcome to QR Attendance System</h1>
+
+    <a href="{{ url_for('attendance') }}" class="block mb-4 text-lg text-white bg-green-500 hover:bg-green-600 py-3 rounded transition duration-200">
+      → Go to QR Code Attendance
+    </a>
+
+    <a href="{{ url_for('admin_login') }}" class="block text-lg text-blue-600 hover:underline">
+      → Admin Login
+    </a>
+  </div>
+
+</body>
+</html>

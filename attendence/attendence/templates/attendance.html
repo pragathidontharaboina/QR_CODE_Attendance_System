@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR Code Attendance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
+    <h2 class="text-3xl font-semibold mb-6 text-blue-600">QR Code Attendance</h2>
+
+    {% if error %}
+      <p class="mb-4 text-red-600 font-medium">{{ error }}</p>
+    {% endif %}
+    {% if message %}
+      <p class="mb-4 text-green-600 font-medium">{{ message }}</p>
+    {% endif %}
+
+    {% if otp_mode %}
+      <p class="mb-4 text-gray-700">Scan the QR code and enter the OTP shown:</p>
+      <img src="{{ url_for('qr_image') }}" alt="QR Code" class="mx-auto mb-6 w-48 h-48" />
+      <form action="{{ url_for('verify_otp') }}" method="post" class="space-y-4">
+        <input
+          type="text"
+          name="otp"
+          placeholder="Enter OTP"
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
+        >
+          Submit OTP
+        </button>
+      </form>
+    {% else %}
+      <form method="post" class="space-y-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="text"
+          name="roll"
+          placeholder="Roll No"
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded transition"
+        >
+          Generate QR
+        </button>
+      </form>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="inline-block mt-6 text-blue-600 hover:underline">
+      ← Back to Home
+    </a>
+  </div>
+
+</body>
+</html>
